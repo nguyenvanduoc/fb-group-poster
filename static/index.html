@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng bài nhóm Facebook</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <h1>Đăng bài nhóm Facebook</h1>
+  <div id="topStatus" class="pill">Đang tải…</div>
+</header>
+
+<main>
+  <!-- BƯỚC 1 -->
+  <section class="card">
+    <h2><span class="num">1</span> Đăng nhập</h2>
+    <p class="hint">Tool mở một cửa sổ Chrome riêng. Bạn tự đăng nhập Facebook trong cửa sổ đó (kể cả mã 2FA).
+      Phiên đăng nhập được lưu lại, lần sau không cần đăng nhập lại. Tool <b>không</b> lưu mật khẩu.</p>
+    <div class="row">
+      <button id="btnOpenLogin" class="primary">Mở trình duyệt đăng nhập</button>
+      <button id="btnCheckLogin">Kiểm tra đăng nhập</button>
+      <button id="btnCloseBrowser" class="ghost">Đóng trình duyệt</button>
+      <span id="loginState" class="pill">Chưa kiểm tra</span>
+    </div>
+  </section>
+
+  <!-- BƯỚC 2 -->
+  <section class="card">
+    <h2><span class="num">2</span> Nhóm cần đăng</h2>
+    <div class="row">
+      <select id="listSelect"><option value="">— Danh sách đã lưu —</option></select>
+      <button id="btnLoadList">Tải</button>
+      <button id="btnDeleteList" class="ghost">Xoá danh sách</button>
+    </div>
+    <textarea id="groupInput" rows="5" placeholder="Dán link nhóm, mỗi dòng 1 link&#10;https://www.facebook.com/groups/123456789&#10;https://www.facebook.com/groups/ten-nhom"></textarea>
+    <div class="row">
+      <button id="btnParse" class="primary">Thêm vào danh sách</button>
+      <span id="parseMsg" class="hint"></span>
+    </div>
+    <div class="row between">
+      <label><input type="checkbox" id="checkAll" checked> Chọn tất cả</label>
+      <span id="groupCount" class="hint"></span>
+    </div>
+    <ul id="groupList" class="list"></ul>
+    <div class="row">
+      <input id="listName" placeholder="Tên danh sách, vd: Nhóm BĐS Hà Nội">
+      <button id="btnSaveList">Lưu danh sách</button>
+    </div>
+  </section>
+
+  <!-- NỘI DUNG -->
+  <section class="card">
+    <h2><span class="num">✎</span> Nội dung bài đăng</h2>
+    <div class="row">
+      <select id="tplSelect"><option value="">— Mẫu bài đã lưu —</option></select>
+      <button id="btnLoadTpl">Tải</button>
+      <button id="btnDeleteTpl" class="ghost">Xoá mẫu</button>
+    </div>
+    <textarea id="postText" rows="8" placeholder="Nội dung bài viết…"></textarea>
+    <div id="emojiBar" class="emoji-bar"></div>
+    <div class="row">
+      <label class="file-btn">📷 Thêm ảnh<input type="file" id="imageInput" accept="image/*" multiple hidden></label>
+      <span class="hint">Tối đa 10 ảnh (jpg, png, gif, webp)</span>
+    </div>
+    <div id="imagePreview" class="thumbs"></div>
+    <div class="row">
+      <input id="tplName" placeholder="Tên mẫu bài">
+      <button id="btnSaveTpl">Lưu mẫu</button>
+    </div>
+  </section>
+
+  <!-- BƯỚC 3 -->
+  <section class="card">
+    <h2><span class="num">3</span> Cấu hình thời gian</h2>
+    <div class="grid">
+      <label>Chế độ
+        <select id="mode">
+          <option value="semi">Bán tự động: tool điền sẵn, bạn bấm Đăng</option>
+          <option value="auto">Tự động: tool tự bấm Đăng</option>
+        </select>
+      </label>
+      <label>Giãn cách tối thiểu (phút)<input type="number" id="minDelay" min="0" step="0.5"></label>
+      <label>Giãn cách tối đa (phút)<input type="number" id="maxDelay" min="0" step="0.5"></label>
+      <label>Tối đa số bài / ngày<input type="number" id="dailyLimit" min="1" max="30"></label>
+      <label>Chỉ chạy từ (giờ)<input type="number" id="startHour" min="0" max="23"></label>
+      <label>Đến trước (giờ)<input type="number" id="endHour" min="0" max="24"></label>
+    </div>
+    <p class="hint">Thời gian chờ giữa 2 nhóm được chọn <b>ngẫu nhiên</b> trong khoảng tối thiểu–tối đa.
+      Chế độ tự động bắt buộc giãn cách ≥ 3 phút. Giờ bắt đầu = giờ kết thúc nghĩa là chạy cả ngày.</p>
+    <div class="row">
+      <button id="btnSaveSettings">Lưu cấu hình</button>
+      <span id="settingsMsg" class="hint"></span>
+    </div>
+  </section>
+
+  <!-- CHẠY -->
+  <section class="card">
+    <h2><span class="num">▶</span> Chạy</h2>
+    <div class="row">
+      <button id="btnStart" class="primary big">Bắt đầu đăng</button>
+      <button id="btnPause">Tạm dừng</button>
+      <button id="btnResume">Tiếp tục</button>
+      <button id="btnSkip" title="Đang đăng: bỏ qua nhóm hiện tại. Đang chờ: đăng nhóm kế tiếp ngay">Bỏ qua</button>
+      <button id="btnStop" class="danger">Dừng</button>
+    </div>
+    <div id="jobMsg" class="job-msg">Chưa chạy.</div>
+    <table class="items">
+      <thead><tr><th>#</th><th>Nhóm</th><th>Trạng thái</th><th>Giờ</th><th>Ghi chú</th></tr></thead>
+      <tbody id="jobItems"></tbody>
+    </table>
+  </section>
+
+  <!-- LỊCH SỬ -->
+  <section class="card">
+    <h2><span class="num">☰</span> Lịch sử</h2>
+    <button id="btnHistory">Tải lịch sử</button>
+    <table class="items">
+      <thead><tr><th>Thời gian</th><th>Nhóm</th><th>Trạng thái</th><th>Ghi chú</th></tr></thead>
+      <tbody id="historyItems"></tbody>
+    </table>
+  </section>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
