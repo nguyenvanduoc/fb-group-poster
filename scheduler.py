@@ -120,8 +120,7 @@ class JobRunner:
                 self.state["current"] = item["url"]
                 self.state["next_at"] = None
                 item["status"] = "running"
-                self._msg(f"Đang đăng nhóm {idx + 1}/{len(items)}"
-                          + (" — hãy kiểm tra rồi bấm Đăng trên trình duyệt" if s["mode"] == "semi" else ""))
+                self._msg(f"Đang đăng nhóm {idx + 1}/{len(items)}")
                 try:
                     page = await self.bm.get_page()
                     status, note = await post_to_group(page, item["url"], text, images, s["mode"], self.controls)

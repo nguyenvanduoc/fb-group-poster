@@ -5,12 +5,14 @@
 2. Giải nén thư mục `fb_group_poster`, bấm đúp **`setup.bat`**. Script sẽ cài thư viện và trình duyệt Chromium, mất khoảng 2–5 phút.
 
 ## Sử dụng
-1. Bấm đúp **`start.bat`**. Trang web http://127.0.0.1:8000 sẽ tự mở.
-2. **Bước 1**: bấm *Mở trình duyệt đăng nhập*, đăng nhập Facebook trong cửa sổ Chrome vừa mở, rồi bấm *Kiểm tra đăng nhập*.
-3. **Bước 2**: dán link nhóm (mỗi dòng 1 link), bấm *Thêm vào danh sách*, rồi tick các nhóm muốn đăng. Có thể *Lưu danh sách* để dùng lại.
-4. **Nội dung**: gõ nội dung, bấm emoji để chèn, *Thêm ảnh* (tối đa 10). Có thể *Lưu mẫu*.
-5. **Bước 3**: chọn chế độ, giãn cách, giới hạn/ngày, khung giờ.
-6. Bấm **Bắt đầu đăng**. Theo dõi tiến trình trong bảng; dùng *Tạm dừng / Tiếp tục / Bỏ qua / Dừng* khi cần.
+Bấm đúp **`start.bat`**, trang http://127.0.0.1:8000 tự mở. Giao diện có 4 bước, bấm **Tiếp tục →** để sang bước sau:
+
+1. **Đăng nhập**: bấm *Mở Facebook để đăng nhập*, rồi đăng nhập trong cửa sổ Chrome vừa mở. Tool tự nhận biết và chuyển sang bước 2.
+2. **Chọn nhóm**: dán link nhóm vào ô (tool tự thêm khi dán), bỏ tick nhóm không muốn đăng. *💾 Lưu* để dùng lại; *📂 Danh sách đã lưu* để mở lại.
+3. **Nội dung**: gõ bài, *😊 Biểu tượng* để chèn emoji, *🖼 Thêm ảnh* (tối đa 10). *💾 Lưu* thành mẫu để dùng lại.
+4. **Đăng bài**: chọn *Ai bấm nút Đăng?* và tốc độ (*Chậm / Vừa / Nhanh*), rồi bấm **▶ Bắt đầu đăng**. Giới hạn số bài mỗi ngày và khung giờ nằm trong *Tuỳ chỉnh thêm*.
+
+Nội dung đang soạn được tự lưu; tải lại trang không bị mất.
 
 > **Đừng đóng cửa sổ Chrome của tool khi đang chạy.** Có thể thu nhỏ nó xuống.
 > Tắt tool: đóng cửa sổ đen (cmd) của `start.bat`.
